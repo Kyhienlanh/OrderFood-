@@ -2,7 +2,7 @@
     define("HOSTNAME","localhost");
     define("USERNAME","root");
     define("PASSWORD","");
-    define("DATABASE","orderfood_new");
+    define("DATABASE","food");
 
     $connection=mysqli_connect(HOSTNAME,USERNAME,PASSWORD,DATABASE);
     if(!$connection){
