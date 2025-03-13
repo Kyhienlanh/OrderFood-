@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $matkhau = isset($_POST['pass']) ? trim($_POST['pass']) : ''; 
 
     if (!empty($tennguoidung) && !empty($matkhau)) {
-        // Sử dụng Prepared Statement để tránh SQL Injection
+        
         $query = "SELECT * FROM nguoidung WHERE tennguoidung = ? AND matkhau = ?";
         $stmt = mysqli_prepare($connection, $query);
         mysqli_stmt_bind_param($stmt, "ss", $tennguoidung, $matkhau);
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
             else{
-                header("Location: user/trangchuNguoiDung.php");
+                header("Location: user/index.php");
                 exit();
             }
           
