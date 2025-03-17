@@ -73,8 +73,8 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>See more Details</p>
-						<h1>Single Product</h1>
+						<p>Thông tin món ăn</p>
+						<h1>Chi tiết món ăn</h1>
 					</div>
 				</div>
 			</div>
@@ -83,12 +83,69 @@
 	<!-- end breadcrumb section -->
 
 	<!-- single product -->
-	<div class="single-product mt-150 mb-150">
+	<?php
+			include("../db.php");
+
+			if (isset($_GET['id'])) {
+				$idMonan = $_GET['id'];
+				$query = "SELECT * FROM monan WHERE id_monan = $idMonan";
+				$result = mysqli_query($connection, $query);
+
+				if (mysqli_num_rows($result) > 0) { 
+					while ($row = mysqli_fetch_assoc($result)) { 
+			?>
+						<div class="single-product mt-150 mb-150">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-5">
+									<div class="single-product-img">
+									<img src="../uploads/<?php echo htmlspecialchars($row['hinhanh']); ?>" alt="Hình ảnh món ăn">
+									</div>
+								</div>
+								<div class="col-md-7">
+									<div class="single-product-content">
+										<h3><?php echo htmlspecialchars($row['tenmonan']); ?></h3>
+										<p class="single-product-pricing"> Giá: <?php echo htmlspecialchars(number_format($row['gia'], 0)); ?> VND</p>
+										<p><?php echo htmlspecialchars($row['mota']); ?></p>
+										
+										<div class="single-product-form">
+										<form onsubmit="return false;">
+										<input type="number" id="soluong_<?= $row['id_monan']; ?>" name="soluong_<?= $row['id_monan']; ?>" value="1" min="1" style="width: 60px;">
+											
+										</form>
+										<a href="javascript:void(0);" class="cart-btn" onclick="themVaoGioHang(<?= $row['id_monan']; ?>)">
+											<i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+										</a>
+											<p><strong>Thành phần: </strong><?php echo htmlspecialchars($row['thanhphan']); ?></p>
+										</div>
+										<h4>chia sẻ:</h4>
+										<ul class="product-share">
+											<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+											<li><a href=""><i class="fab fa-twitter"></i></a></li>
+											<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
+											<li><a href=""><i class="fab fa-linkedin"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			<?php 
+					} 
+				} else {
+					echo "Không tìm thấy món ăn.";
+				}
+			} else {
+				echo "Không có ID trong URL";
+			}
+	?>
+
+	<!-- <div class="single-product mt-150 mb-150">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-5">
 					<div class="single-product-img">
-						<img src="assets/img/products/product-img-5.jpg" alt="">
+						<img src="../uploads/banhmi.jpg" alt="">
 					</div>
 				</div>
 				<div class="col-md-7">
@@ -114,7 +171,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- end single product -->
 
 	<!-- more products -->
@@ -132,7 +189,7 @@
 				<div class="col-lg-4 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.php"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+							<a href="single-product.php"><img src="../uploads/banhmi.jpg" alt=""></a>
 						</div>
 						<h3>Strawberry</h3>
 						<p class="product-price"><span>Per Kg</span> 85$ </p>
@@ -201,8 +258,69 @@
 	<!-- copyright -->
 	
 	<!-- end copyright -->
-	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+function themVaoGioHang(id) {
+    let soluong = document.getElementById("soluong_" + id).value;
+
+    $.ajax({
+        url: "AddToCarts.php",
+        type: "POST",
+        data: { id: id, soluong: soluong }, // Gửi số lượng đã chọn
+        success: function(response) {
+            try {
+                let data = JSON.parse(response);
+
+                if (data.status === "success") {
+                    Swal.fire({
+                        title: "Thành công!",
+                        text: "Sản phẩm đã được thêm vào giỏ hàng.",
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Xem giỏ hàng",
+                        cancelButtonText: "Tiếp tục mua",
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "cart.php";
+                        }
+                    });
+                } else if (data.message === "Vui lòng đăng nhập để thêm vào giỏ hàng.") {
+                    Swal.fire({
+                        title: "Chưa đăng nhập!",
+                        text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Đăng nhập",
+                        cancelButtonText: "Đóng",
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../login.php";
+                        }
+                    });
+                } else {
+                    Swal.fire("Lỗi!", data.message || "Không thể thêm vào giỏ hàng.", "error");
+                }
+            } catch (error) {
+                console.error("Lỗi parse JSON:", error, response);
+                Swal.fire("Lỗi!", "Có lỗi xảy ra, vui lòng thử lại.", "error");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Lỗi AJAX:", status, error);
+            Swal.fire("Lỗi!", "Không thể kết nối đến server.", "error");
+        }
+    });
+}
+</script>
+	</script>
 	<!-- jquery -->
+
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
