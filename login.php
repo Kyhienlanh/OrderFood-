@@ -4,32 +4,36 @@ include("db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tennguoidung = isset($_POST['username']) ? trim($_POST['username']) : ''; 
-    $matkhau = isset($_POST['pass']) ? trim($_POST['pass']) : ''; 
+    $matkhau = isset($_POST['pass']) ? trim($_POST['pass']) : '';  // Do not hash the password here
 
     if (!empty($tennguoidung) && !empty($matkhau)) {
         
-        $query = "SELECT * FROM nguoidung WHERE tennguoidung = ? AND matkhau = ?";
+        $query = "SELECT * FROM nguoidung WHERE tennguoidung = ?";
         $stmt = mysqli_prepare($connection, $query);
-        mysqli_stmt_bind_param($stmt, "ss", $tennguoidung, $matkhau);
+        mysqli_stmt_bind_param($stmt, "s", $tennguoidung);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
         if ($row = mysqli_fetch_assoc($result)) {
-          
-            $_SESSION['user_id'] = $row['id_nguoidung'];
-            $_SESSION['username'] = $row['tennguoidung'];
+            // Check if the password matches the hashed password in the database
+            if (password_verify($matkhau, $row['matkhau'])) {
 
-            echo "Đăng nhập thành công! Chào mừng, " . $_SESSION['username'];
+                $_SESSION['user_id'] = $row['id_nguoidung'];
+                $_SESSION['username'] = $row['tennguoidung'];
 
-            if($row['vaitro']=="quanly"){
-                header("Location: admin/trangchuAdmin.php");
-                exit();
+                echo "Đăng nhập thành công! Chào mừng, " . $_SESSION['username'];
+
+                // Redirect based on user role
+                if($row['vaitro'] == "quanly"){
+                    header("Location: admin/trangchuAdmin.php");
+                    exit();
+                } else {
+                    header("Location: user/index.php");
+                    exit();
+                }
+            } else {
+                echo "Sai tài khoản hoặc mật khẩu!";
             }
-            else{
-                header("Location: user/index.php");
-                exit();
-            }
-          
         } else {
             echo "Sai tài khoản hoặc mật khẩu!";
         }
