@@ -45,6 +45,8 @@
 	<!-- header -->
 	<?php
 	include("menu.php");
+	include("../db.php");
+	include("checkLogin.php");
 	?>
 	<!-- end header -->
 
@@ -93,7 +95,7 @@
 						    <div class="card-header" id="headingOne">
 						      <h5 class="mb-0">
 						        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						          Billing Address
+						          Địa chỉ nhận hàng
 						        </button>
 						      </h5>
 						    </div>
@@ -101,25 +103,37 @@
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="billing-address-form">
-						        	<form action="index.php">
-						        		<p><input type="text" placeholder="Name"></p>
-						        		<p><input type="email" placeholder="Email"></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
-						        		<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
-						        	</form>
+								<?php
+										$id_user=$_SESSION['user_id'];
+										$query="SELECT * from nguoidung where id_nguoidung=$id_user";
+										$result=mysqli_query($connection,$query);
+										while($rows=mysqli_fetch_assoc($result)){ ?>
+
+										<form action="DatHang.php" method="POST">
+										<p><input type="text" name="name" placeholder="Tên" required value="<?php echo $rows['tennguoidung'];?>"></p>
+										<p><input type="email" name="email" placeholder="Email" required  value="<?php echo $rows['email'];?>"></p>
+										<p><input type="text" id="address" name="address" placeholder="Địa chỉ nhận hàng" required value="<?php echo $rows['diachi'];?>"></p>
+
+										<p><input type="tel" name="phone" placeholder="Số điện thoại" required  value="<?php echo $rows['sodienthoai'];?>"></p>
+										<p><textarea name="note" cols="30" rows="5" placeholder="Say Something"></textarea></p>
+										<!-- <button type="submit" class="boxed-btn" style="border-radius: 20px;">Đặt hàng</button> -->
+								</form>
+										<?php
+										}
+
+								?>
 						        </div>
 						      </div>
 						    </div>
 						  </div>
 						  <div class="card single-accordion">
-						    <div class="card-header" id="headingTwo">
+						    <!-- <div class="card-header" id="headingTwo">
 						      <h5 class="mb-0">
 						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 						          Shipping Address
 						        </button>
 						      </h5>
-						    </div>
+						    </div> -->
 						    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="shipping-address-form">
@@ -129,13 +143,13 @@
 						    </div>
 						  </div>
 						  <div class="card single-accordion">
-						    <div class="card-header" id="headingThree">
+						    <!-- <div class="card-header" id="headingThree">
 						      <h5 class="mb-0">
 						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 						          Card Details
 						        </button>
 						      </h5>
-						    </div>
+						    </div> -->
 						    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="card-details">
@@ -154,44 +168,65 @@
 						<table class="order-details">
 							<thead>
 								<tr>
-									<th>Your order Details</th>
-									<th>Price</th>
+									<th>Chi tiết đơn hàng </th>
+									<th>Số lượng</th>
+									<th>Gía</th>
 								</tr>
 							</thead>
 							<tbody class="order-details-body">
-								<tr>
-									<td>Product</td>
-									<td>Total</td>
-								</tr>
-								<tr>
-									<td>Strawberry</td>
-									<td>$85.00</td>
-								</tr>
-								<tr>
-									<td>Berry</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Lemon</td>
-									<td>$35.00</td>
-								</tr>
+							<?php
+								
+									
+									$tong_gio_hang = 0;
+									$id_user=$_SESSION['user_id'];
+									
+									$query="SELECT g.* ,m.tenmonan , m.gia , m.hinhanh  FROM giohang g , monan m where g.id_monan= m.id_monan and g.id_nguoidung=$id_user";
+
+									$result=mysqli_query($connection,$query);
+									while($rows=mysqli_fetch_assoc($result)){ 
+										$tong_gio_hang += $rows['soluong'] * $rows['gia'];
+										?>
+										<tr class="table-body-row">
+											<td class="product-name"><?php echo $rows['tenmonan'];?></td>
+											<td class="product-quantity">
+											<?php echo $rows['soluong']; ?>
+											</td>
+											<td class="product-total" id="total-<?php echo $rows['id_monan']; ?>">
+												<?php echo number_format($rows['soluong'] * $rows['gia']) . " VNĐ"; ?>
+											</td>
+										</tr>
+								<?php
+									}
+									?>  
+									
+									<?php
+								?>
+								
 							</tbody>
 							<tbody class="checkout-details">
 								<tr>
-									<td>Subtotal</td>
-									<td>$190</td>
-								</tr>
-								<tr>
-									<td>Shipping</td>
-									<td>$50</td>
-								</tr>
-								<tr>
-									<td>Total</td>
-									<td>$240</td>
+									<?php
+											$id_user = $_SESSION['user_id'];
+										    $query_total = "SELECT SUM(g.soluong * m.gia) AS tong_gio_hang 
+											FROM giohang g 
+											JOIN monan m ON g.id_monan = m.id_monan 
+											WHERE g.id_nguoidung = $id_user";
+											$result_total = mysqli_query($connection, $query_total);
+											if ($result_total) {
+												$row_total = mysqli_fetch_assoc($result_total);
+												$tong_gio_hang = $row_total['tong_gio_hang'] ?? 0;
+												echo "	<td>Tổng cộng</td>
+														<td></td>
+														<td>" . number_format($tong_gio_hang, 0) . " VNĐ</td>";
+
+											}
+									?>
+									
 								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+						<a href="#" class="boxed-btn">Đặt hàng</a>
+
 					</div>
 				</div>
 			</div>
@@ -232,7 +267,68 @@
 	include("footer.php");
 	?>
 	<!-- end copyright -->
-	
+<!-- Thêm thư viện SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".boxed-btn").click(function (e) {
+        e.preventDefault(); // Ngăn trang tải lại
+
+        let formData = {
+            name: $("input[name='name']").val(),
+            email: $("input[name='email']").val(),
+            address: $("input[name='address']").val(), // Đảm bảo lấy đúng giá trị
+            phone: $("input[name='phone']").val(),
+            note: $("textarea[name='note']").val()
+        };
+
+        console.log("Dữ liệu gửi đi:", formData); // Kiểm tra dữ liệu trước khi gửi AJAX
+
+        $.ajax({
+            url: "DatHang.php",
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            success: function (response) {
+                console.log("Phản hồi từ server:", response); // Kiểm tra JSON trả về
+
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Đặt hàng thành công!",
+                        text: "Mã đơn hàng: " + response.id_donhang,
+                        confirmButtonText: "Xem đơn hàng"
+                    }).then(() => {
+                        window.location.href = "donhang.php?id=" + response.id_donhang;
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Lỗi!",
+                        text: response.message,
+                        confirmButtonText: "Thử lại"
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi AJAX:", xhr.responseText);
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi kết nối!",
+                    text: "Không thể gửi yêu cầu, vui lòng thử lại sau.",
+                    confirmButtonText: "OK"
+                });
+            }
+        });
+    });
+});
+
+
+
+</script>
+
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->

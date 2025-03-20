@@ -44,7 +44,7 @@
 	
 	<!-- header -->
 	<?php
-
+	include("checkLogin.php");
 
 
 	include("menu.php");
@@ -105,7 +105,6 @@
 							<tbody>
 								<?php
 									include("../db.php");
-									include("checkLogin.php");
 									$tong_gio_hang = 0;
 									$id_user=$_SESSION['user_id'];
 									
