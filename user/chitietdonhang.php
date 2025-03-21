@@ -73,8 +73,8 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Fresh and Organic</p>
-						<h1>Cart</h1>
+						
+						<h1>Chi tiết đơn hàng</h1>
 					</div>
 				</div>
 			</div>
@@ -91,51 +91,39 @@
 						<table class="cart-table">
 							<thead class="cart-table-head">
 								<tr class="table-head-row">
-									<th class="product-remove"></th>
+									<!-- <th class="product-remove"></th> -->
 									<th class="product-image">Hình món ăn</th>
 									<th class="product-name">Tên món ăn</th>
-									<th class="product-price">Gía</th>
-									<th class="product-quantity">Số lượng</th>
-									<th class="product-total">Tổng</th>
+                                    <th class="product-quantity">Số lượng</th>
+									<th class="product-price" >Gía</th>
+									
+								
 								</tr>
 							</thead>
 							<tbody>
 								<?php
 									include("../db.php");
 									include("checkLogin.php");
-									$tong_gio_hang = 0;
+								
 									$id_user=$_SESSION['user_id'];
-									
-									$query="SELECT g.* ,m.tenmonan , m.gia , m.hinhanh  FROM giohang g , monan m where g.id_monan= m.id_monan and g.id_nguoidung=$id_user";
+									$id_donhang = $_GET['id'];
+                                    echo "<h3 style='text-align: center;'> Chi tiết món ăn của đơn hàng $id_donhang</h3>";
+									$query="SELECT m.tenmonan , m.hinhanh , c.soluong , c.gia FROM chitietdonhang c , monan m where c.id_monan= m.id_monan and c.id_donhang=$id_donhang";
 
 									$result=mysqli_query($connection,$query);
 									while($rows=mysqli_fetch_assoc($result)){ 
-										$tong_gio_hang += $rows['soluong'] * $rows['gia'];
+										
 										?>
 										<tr class="table-body-row">
-										<td class="product-remove">
-											<a href="#" class="remove-item" data-id="<?php echo $rows['id_monan']; ?>">
-												<i class="far fa-window-close"></i>
-											</a>
-										</td>
-
 											<td class="product-image">
 												<img src="<?php echo '../uploads/' . htmlspecialchars($rows['hinhanh']); ?>" alt="">
 											</td>
-
 											<td class="product-name"><?php echo $rows['tenmonan'];?></td>
-											<td class="product-price"><?php echo number_format($rows['gia'],0) . " VNĐ";?></td>
 											<td class="product-quantity">
-												<input type="number" class="quantity-input" 
-													data-id="<?php echo $rows['id_monan']; ?>" 
-													data-price="<?php echo $rows['gia']; ?>" 
-													min="1" 
-													value="<?php echo $rows['soluong']; ?>">
+                                                <?php echo $rows['soluong']; ?>
 											</td>
-
-											<td class="product-total" id="total-<?php echo $rows['id_monan']; ?>">
-												<?php echo number_format($rows['soluong'] * $rows['gia']) . " VNĐ"; ?>
-											</td>
+                                            <td class="product-price"><?php echo number_format($rows['soluong'] * $rows['gia']) . " VNĐ"; ?></td>
+											
 										</tr>
 								<?php
 									}
@@ -148,7 +136,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4">
-					<div class="total-section">
+					<!-- <div class="total-section">
 						<table class="total-table">
 							<thead class="total-table-head">
 								<tr class="table-total-row">
@@ -166,9 +154,9 @@
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<!-- <a href="cart.php" class="boxed-btn">Update Cart</a> -->
+							<a href="cart.php" class="boxed-btn">Update Cart</a>
 							<a href="checkout.php" class="boxed-btn black">Thanh toán</a>
-						</div>
+						</div> -->
 					</div>
 
 					<!-- <div class="coupon-section">
@@ -218,116 +206,11 @@
 	<?php
 	include("footer.php");
 	?>
-	<!-- end copyright -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
- $(document).ready(function () {
-    $(".quantity-input").on("change", function () {
-        let id_monan = $(this).data("id");  
-        let newQuantity = parseInt($(this).val());  
-        let price = parseInt($(this).closest("tr").find(".product-price").text().replace(/[^0-9]/g, ""));
-        let rowTotalElement = $(this).closest("tr").find(".product-total"); 
-
-        if (isNaN(newQuantity) || newQuantity < 1) {
-            alert("Số lượng phải lớn hơn 0!");
-            $(this).val(1);
-            newQuantity = 1;
-        }
-
-        if (isNaN(price)) {
-            alert("Lỗi: Không lấy được giá sản phẩm!");
-            return;
-        }
-
-        // Cập nhật tổng tiền sản phẩm
-        let newTotal = newQuantity * price;
-        rowTotalElement.text(newTotal.toLocaleString() + " VNĐ");
-
-        // Gửi AJAX cập nhật database
-        $.ajax({
-            url: "update_cart.php",
-            type: "POST",
-            data: { id_monan: id_monan, soluong: newQuantity },
-            dataType: "json",
-            success: function (response) {
-                if (response.status === "success") {
-                    // Cập nhật tổng tiền giỏ hàng
-                    // $("#cart-total").text(response.cart_total.toLocaleString() + " VNĐ");
-					$(".total-data td:last-child").text(
-						new Intl.NumberFormat("vi-VN").format(response.cart_total) + " VNĐ"
-					);
-
-                } else {
-                    alert("Lỗi: " + response.message);
-                }
-            },
-            error: function () {
-                alert("Lỗi kết nối, vui lòng thử lại!");
-            }
-        });
-    });
-});
-
-
-$(document).ready(function () {
-    $(".remove-item").on("click", function (e) {
-        e.preventDefault(); // Ngăn chặn chuyển hướng trang
-
-        let id_monan = $(this).data("id"); // Lấy ID món ăn
-        let row = $(this).closest("tr"); // Lấy dòng sản phẩm
-
-        // Hiển thị thông báo xác nhận bằng SweetAlert2
-        Swal.fire({
-            title: "Bạn có chắc chắn?",
-            text: "Sản phẩm này sẽ bị xóa khỏi giỏ hàng!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Xóa",
-            cancelButtonText: "Hủy",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Gửi AJAX để xóa sản phẩm
-                $.ajax({
-                    url: "remove_cart.php",
-                    type: "POST",
-                    data: { id_monan: id_monan },
-                    dataType: "json",
-                    success: function (response) {
-                        if (response.status === "success") {
-                            row.remove(); // Xóa sản phẩm khỏi giao diện
-
-                            // Cập nhật tổng giỏ hàng
-                            $("#cart-total, .total-data td:last-child").text(
-                                new Intl.NumberFormat("vi-VN").format(response.cart_total) + " VNĐ"
-                            );
-
-                            // Hiển thị thông báo thành công
-                            Swal.fire({
-                                title: "Xóa thành công!",
-                                text: "Sản phẩm đã bị xóa khỏi giỏ hàng.",
-                                icon: "success",
-                                timer: 2000,
-                                showConfirmButton: false,
-                            });
-                        } else {
-                            Swal.fire("Lỗi!", response.message, "error");
-                        }
-                    },
-                    error: function () {
-                        Swal.fire("Lỗi!", "Đã xảy ra lỗi, vui lòng thử lại!", "error");
-                    },
-                });
-            }
-        });
-    });
-});
 
 
 
 
-</script>
+
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

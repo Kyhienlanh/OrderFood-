@@ -4,17 +4,15 @@ include("../db.php");
 session_start();
 
 $id_nguoidung = $_SESSION['user_id'];
+$diachi = mysqli_real_escape_string($connection, $_POST['address']);
+$payment_method = $_POST['payment_method'] ?? 'cod'; // Mặc định là thanh toán khi nhận hàng
 
-if (!isset($_POST['address'])) {
-    echo json_encode(["status" => "error", "message" => "Không nhận được địa chỉ!"]);
+if ($payment_method === "paypal") {
+    echo json_encode(["status" => "redirect", "url" => "paypal_payment.php"]);
     exit();
 }
 
-$diachi = mysqli_real_escape_string($connection, $_POST['address']); // Lấy địa chỉ từ request
-
-// Kiểm tra dữ liệu nhận được
-error_log("Địa chỉ nhận được: " . $diachi);
-
+// Lấy thông tin giỏ hàng
 $query = "SELECT g.id_monan, g.soluong, m.gia 
           FROM giohang g 
           JOIN monan m ON g.id_monan = m.id_monan 
@@ -30,11 +28,13 @@ if (mysqli_num_rows($result) > 0) {
         $items[] = $row;
     }
 
+    // $query_insert_donhang = "INSERT INTO donhang (id_nguoidung, tongtien, diachi, payment_method) 
+    //                          VALUES ($id_nguoidung, $tong_tien, '$diachi', '$payment_method')";
     $query_insert_donhang = "INSERT INTO donhang (id_nguoidung, tongtien, diachi) 
                              VALUES ($id_nguoidung, $tong_tien, '$diachi')";
 
     if (mysqli_query($connection, $query_insert_donhang)) {
-        $id_donhang = mysqli_insert_id($connection); 
+        $id_donhang = mysqli_insert_id($connection);
 
         foreach ($items as $item) {
             $id_monan = $item['id_monan'];
@@ -47,7 +47,10 @@ if (mysqli_num_rows($result) > 0) {
 
         $query_delete_cart = "DELETE FROM giohang WHERE id_nguoidung = $id_nguoidung";
         mysqli_query($connection, $query_delete_cart);
-
+        $query_payment= "INSERT INTO thanhtoan (id_donhang, phuongthuc, trangthai_thanhtoan, ngaythanhtoan)  
+                            VALUES ($id_donhang, 'tien_mat', 'cho_duyet', NOW())";
+                           
+        mysqli_query($connection, $query_payment);
         echo json_encode(["status" => "success", "message" => "Đặt hàng thành công!", "id_donhang" => $id_donhang]);
     } else {
         echo json_encode(["status" => "error", "message" => "Lỗi khi tạo đơn hàng!"]);

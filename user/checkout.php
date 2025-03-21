@@ -115,6 +115,15 @@
 										<p><input type="text" id="address" name="address" placeholder="Địa chỉ nhận hàng" required value="<?php echo $rows['diachi'];?>"></p>
 
 										<p><input type="tel" name="phone" placeholder="Số điện thoại" required  value="<?php echo $rows['sodienthoai'];?>"></p>
+										<p>
+											<label>
+												<input type="radio" name="payment_method" value="cod" checked> Thanh toán khi nhận hàng
+											</label>
+											<label>
+												<input type="radio" name="payment_method" value="paypal"> Thanh toán qua PayPal
+											</label>
+										</p>
+
 										<p><textarea name="note" cols="30" rows="5" placeholder="Say Something"></textarea></p>
 										<!-- <button type="submit" class="boxed-btn" style="border-radius: 20px;">Đặt hàng</button> -->
 								</form>
@@ -276,55 +285,67 @@
     $(".boxed-btn").click(function (e) {
         e.preventDefault(); // Ngăn trang tải lại
 
-        let formData = {
-            name: $("input[name='name']").val(),
-            email: $("input[name='email']").val(),
-            address: $("input[name='address']").val(), // Đảm bảo lấy đúng giá trị
-            phone: $("input[name='phone']").val(),
-            note: $("textarea[name='note']").val()
-        };
+        let paymentMethod = $("input[name='payment_method']:checked").val(); // Lấy phương thức thanh toán
+		let tongtien = $("td:contains('Tổng cộng')").next().next().text().replace(" VNĐ", "").replace(",", "").trim();
 
-        console.log("Dữ liệu gửi đi:", formData); // Kiểm tra dữ liệu trước khi gửi AJAX
+		let formData = {
+			name: $("input[name='name']").val(),
+			email: $("input[name='email']").val(),
+			address: $("input[name='address']").val(),
+			phone: $("input[name='phone']").val(),
+			note: $("textarea[name='note']").val(),
+			payment_method: paymentMethod,
+			tongtien: tongtien // 🟢 Thêm tổng tiền vào formData
+		};
 
-        $.ajax({
-            url: "DatHang.php",
-            type: "POST",
-            data: formData,
-            dataType: "json",
-            success: function (response) {
-                console.log("Phản hồi từ server:", response); // Kiểm tra JSON trả về
+		console.log("Dữ liệu gửi đi:", formData); // Kiểm tra dữ liệu trước khi gửi
 
-                if (response.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Đặt hàng thành công!",
-                        text: "Mã đơn hàng: " + response.id_donhang,
-                        confirmButtonText: "Xem đơn hàng"
-                    }).then(() => {
-                        window.location.href = "donhang.php?id=" + response.id_donhang;
-                    });
-                } else {
+
+        if (paymentMethod === "cod") {
+            // ✅ Thanh toán khi nhận hàng (COD)
+            $.ajax({
+                url: "DatHang.php",
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                success: function (response) {
+                    console.log("Phản hồi từ server:", response);
+
+                    if (response.status === "success") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Đặt hàng thành công!",
+                            text: "Mã đơn hàng: " + response.id_donhang,
+                            confirmButtonText: "Xem đơn hàng"
+                        }).then(() => {
+                            window.location.href = "donhang.php?id=" + response.id_donhang;
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi!",
+                            text: response.message,
+                            confirmButtonText: "Thử lại"
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Lỗi AJAX:", xhr.responseText);
                     Swal.fire({
                         icon: "error",
-                        title: "Lỗi!",
-                        text: response.message,
-                        confirmButtonText: "Thử lại"
+                        title: "Lỗi kết nối!",
+                        text: "Không thể gửi yêu cầu, vui lòng thử lại sau.",
+                        confirmButtonText: "OK"
                     });
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error("Lỗi AJAX:", xhr.responseText);
-                Swal.fire({
-                    icon: "error",
-                    title: "Lỗi kết nối!",
-                    text: "Không thể gửi yêu cầu, vui lòng thử lại sau.",
-                    confirmButtonText: "OK"
-                });
-            }
-        });
+            });
+        } else if (paymentMethod === "paypal") {
+            // ✅ Chuyển hướng đến trang PayPal
+            let paypalUrl = "../pay.php?" + $.param(formData);
+            window.location.href = paypalUrl;
+        }
     });
 });
-
 
 
 </script>
