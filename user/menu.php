@@ -14,14 +14,14 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="#">Trang Chủ</a>
-									<ul class="sub-menu">
+								<li class="current-list-item"><a href="index.php">Trang Chủ</a>
+									<!-- <ul class="sub-menu">
 										<li><a href="index.php">Static Home</a></li>
 										<li><a href="index_2.php">Slider Home</a></li>
-									</ul>
+									</ul> -->
 								</li>
 								<li><a href="about.php">Giới thiệu</a></li>
-								<li><a href="#">Trang</a>
+								<!-- <li><a href="#">Trang</a>
 									<ul class="sub-menu">
 										<li><a href="404.php">404 page</a></li>
 										<li><a href="about.php">About</a></li>
@@ -31,20 +31,20 @@
 										<li><a href="news.php">News</a></li>
 										<li><a href="shop.php">Shop</a></li>
 									</ul>
-								</li>
-								<li><a href="news.php"><Table>Tin tức</Table></a>
+								</li> -->
+								<!-- <li><a href="news.php"><Table>Tin tức</Table></a>
 									<ul class="sub-menu">
 										<li><a href="news.php">News</a></li>
 										<li><a href="single-news.php">Single News</a></li>
 									</ul>
-								</li>
+								</li> -->
 								<li><a href="contact.php">Liên hệ</a></li>
 								<li><a href="shop.php">Cửa hàng</a>
 									<ul class="sub-menu">
-										<li><a href="shop.php">Shop</a></li>
-										<li><a href="checkout.php">Check Out</a></li>
-										<li><a href="single-product.php">Single Product</a></li>
-										<li><a href="cart.php">Cart</a></li>
+										<li><a href="shop.php">Cửa hàng</a></li>
+										<li><a href="checkout.php">Đặt hàng</a></li>
+										<!-- <li><a href="single-product.php">Single Product</a></li> -->
+										<li><a href="cart.php">Giỏ hàng </a></li>
 									</ul>
 								</li>
 								<?php

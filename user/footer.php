@@ -3,40 +3,40 @@
 			<div class="row">
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+						<h2 class="widget-title">Về chúng tôi</h2>
+						<p>Chúng tôi cam kết mang đến cho bạn những sản phẩm chất lượng, dịch vụ tận tâm và trải nghiệm mua sắm tốt nhất. Với sự đa dạng trong sản phẩm và không ngừng đổi mới, chúng tôi hy vọng sẽ luôn là lựa chọn hàng đầu của bạn. Cảm ơn bạn đã tin tưởng và đồng hành cùng chúng tôi!</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
+						<h2 class="widget-title">Liên hệ</h2>
 						<ul>
-							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-							<li>support@fruitkha.com</li>
-							<li>+00 111 222 3333</li>
+							<li>27/11 Mỹ hảo , Chánh Mỹ , tp TDM , Bình Dương</li>
+							<li>kyhienlanh@gmail.com</li>
+							<li>0948292397</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
+						<h2 class="widget-title">Trang</h2>
 						<ul>
-							<li><a href="index.php">Home</a></li>
-							<li><a href="about.php">About</a></li>
-							<li><a href="services.php">Shop</a></li>
-							<li><a href="news.php">News</a></li>
-							<li><a href="contact.php">Contact</a></li>
+							<li><a href="index.php">Trang chủ</a></li>
+							<li><a href="about.php">Giới thiệu</a></li>
+							<li><a href="shop.php">Cửa hàng</a></li>
+							<!-- <li><a href="news.php">News</a></li> -->
+							<li><a href="contact.php">Liên hệ</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.php">
+						<h2 class="widget-title">Cảm ơn</h2>
+						<p>Cảm ơn bạn đã quan tâm và ủng hộ cửa hàng</p>
+						<!-- <form action="index.php">
 							<input type="email" placeholder="Email">
 							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
+						</form> -->
 					</div>
 				</div>
 			</div>
@@ -49,9 +49,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
-						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
-					</p>
+					
 				</div>
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">

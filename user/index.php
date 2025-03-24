@@ -74,11 +74,11 @@
 				<div class="col-lg-9 offset-lg-2 text-center">
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
-							<p class="subtitle">Fresh & Organic</p>
-							<h1>Delicious Seasonal Fruits</h1>
+							<p class="subtitle">Tươi  & Thơm ngon </p>
+							<h1>Đồ ăn chay mang lại hương vị độc đáo</h1>
 							<div class="hero-btns">
-								<a href="shop.php" class="boxed-btn">Fruit Collection</a>
-								<a href="contact.php" class="bordered-btn">Contact Us</a>
+								<a href="shop.php" class="boxed-btn">Danh sách món ăn</a>
+								<a href="contact.php" class="bordered-btn">Liên hệ với chúng tôi</a>
 							</div>
 						</div>
 					</div>
@@ -99,8 +99,8 @@
 							<i class="fas fa-shipping-fast"></i>
 						</div>
 						<div class="content">
-							<h3>Free Shipping</h3>
-							<p>When order over $75</p>
+							<h3>Miễn phí giao hàng</h3>
+						
 						</div>
 					</div>
 				</div>
@@ -110,8 +110,8 @@
 							<i class="fas fa-phone-volume"></i>
 						</div>
 						<div class="content">
-							<h3>24/7 Support</h3>
-							<p>Get support all day</p>
+							<h3>Hỗ trợ 24/7</h3>
+							
 						</div>
 					</div>
 				</div>
@@ -121,8 +121,8 @@
 							<i class="fas fa-sync"></i>
 						</div>
 						<div class="content">
-							<h3>Refund</h3>
-							<p>Get refund within 3 days!</p>
+							<h3>Đổi món ăn nếu sản phẩm có lỗi</h3>
+							
 						</div>
 					</div>
 				</div>
@@ -138,14 +138,44 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="section-title">	
-						<h3><span class="orange-text">Our</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+						<h3><span class="orange-text">Sản phẩm của chúng tôi nhấn <a href="shop.php">Tại đây</a> để xem chi tiết</span> </h3>
+						<p>Món ăn được yêu thích</p>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
+					<?php
+					include("../db.php");
+					$query = "SELECT m.id_monan, m.tenmonan, m.gia, m.mota, d.tendanhmuc, m.hinhanh 
+							FROM monan m 
+							JOIN danhmuc d ON m.id_danhmuc = d.id_danhmuc 
+							LIMIT 3";
+
+
+					$result = mysqli_query($connection, $query);
+
+					
+					while ($rows = mysqli_fetch_assoc($result)) { ?>
+						 <div class="col-lg-4 col-md-6 text-center">
+							<div class="single-product-item">
+								<div class="product-image">
+									<a href="single-product.php?id=<?php echo $rows['id_monan']; ?>">
+										<img src="../uploads/<?php echo htmlspecialchars($rows['hinhanh']); ?>" alt="">
+									</a>
+								</div>
+								<h3><?php echo htmlspecialchars($rows['tenmonan']); ?></h3>
+								<p class="product-price"><?php echo number_format($rows['gia'], 0); ?> VNĐ</p>
+								<a href="javascript:void(0);" onclick="themVaoGioHang(<?php echo $rows['id_monan']; ?>)" class="cart-btn">
+									<i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+								</a>
+							</div>
+						</div>
+					<?php
+					}
+					
+       			?>
+				<!-- <div class="col-lg-4 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
 							<a href="single-product.php"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
@@ -174,17 +204,17 @@
 						<p class="product-price"><span>Per Kg</span> 35$ </p>
 						<a href="cart.php" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
 	<!-- end product section -->
 
 	<!-- cart banner section -->
-	<section class="cart-banner pt-100 pb-100">
+	<!-- <section class="cart-banner pt-100 pb-100">
     	<div class="container">
         	<div class="row clearfix">
-            	<!--Image Column-->
+            
             	<div class="image-column col-lg-6">
                 	<div class="image">
                     	<div class="price-box">
@@ -197,18 +227,18 @@
                     	<img src="assets/img/a.jpg" alt="">
                     </div>
                 </div>
-                <!--Content Column-->
+               
                 <div class="content-column col-lg-6">
 					<h3><span class="orange-text">Deal</span> of the month</h3>
                     <h4>Hikan Strwaberry</h4>
                     <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
+                   
                     <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
                 	<a href="cart.php" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- end cart banner section -->
 
 	<!-- testimonail-section -->
@@ -219,12 +249,12 @@
 					<div class="testimonial-sliders">
 						<div class="single-testimonial-slider">
 							<div class="client-avater">
-								<img src="assets/img/avaters/avatar1.png" alt="">
+								<img src="assets/img/avaters/avatar1.jpg" alt="">
 							</div>
 							<div class="client-meta">
-								<h3>Saira Hakim <span>Local shop owner</span></h3>
+								<h3>GIA KỲ <span>HEHE</span></h3>
 								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+									" CHILL CHILL "
 								</p>
 								<div class="last-icon">
 									<i class="fas fa-quote-right"></i>
@@ -233,12 +263,12 @@
 						</div>
 						<div class="single-testimonial-slider">
 							<div class="client-avater">
-								<img src="assets/img/avaters/avatar2.png" alt="">
+								<img src="assets/img/avaters/kk.png" alt="">
 							</div>
 							<div class="client-meta">
-								<h3>David Niph <span>Local shop owner</span></h3>
+								<h3>Hiền Nguyễn <span>hihi</span></h3>
 								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+									"..."
 								</p>
 								<div class="last-icon">
 									<i class="fas fa-quote-right"></i>
@@ -247,12 +277,12 @@
 						</div>
 						<div class="single-testimonial-slider">
 							<div class="client-avater">
-								<img src="assets/img/avaters/avatar3.png" alt="">
+								<img src="assets/img/avaters/ll.png" alt="">
 							</div>
 							<div class="client-meta">
-								<h3>Jacob Sikim <span>Local shop owner</span></h3>
+								<h3>Lộc Đỗ <span>haha</span></h3>
 								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+									"..."
 								</p>
 								<div class="last-icon">
 									<i class="fas fa-quote-right"></i>
@@ -267,106 +297,11 @@
 	<!-- end testimonail-section -->
 	
 	<!-- advertisement section -->
-	<div class="abt-section mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-bg">
-						<a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-text">
-						<p class="top-sub">Since Year 1999</p>
-						<h2>We are <span class="orange-text">Fruitkha</span></h2>
-						<p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
-						<a href="about.php" class="boxed-btn mt-4">know more</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end advertisement section -->
 	
-	<!-- shop banner -->
-	<section class="shop-banner">
-    	<div class="container">
-        	<h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
-            <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
-            <a href="shop.php" class="cart-btn btn-lg">Shop Now</a>
-        </div>
-    </section>
-	<!-- end shop banner -->
-
-	<!-- latest news -->
-	<div class="latest-news pt-150 pb-150">
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Our</span> News</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<a href="single-news.php"><div class="latest-news-bg news-bg-1"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.php">You will vainly look for fruit on it in autumn.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.php" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<a href="single-news.php"><div class="latest-news-bg news-bg-2"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.php">A man's worth has its season, like tomato.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.php" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-					<div class="single-latest-news">
-						<a href="single-news.php"><div class="latest-news-bg news-bg-3"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.php">Good thoughts bear good fresh juicy fruit.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.php" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<a href="news.php" class="boxed-btn">More News</a>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- end latest news -->
 
 	<!-- logo carousel -->
-	<div class="logo-carousel-section">
+	<!-- <div class="logo-carousel-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -390,7 +325,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- end logo carousel -->
 
 	<!-- footer -->
@@ -398,7 +333,66 @@
 	include("footer.php");
 	?>
 	<!-- end copyright -->
-	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+function themVaoGioHang(id) {
+    $.ajax({
+        url: "AddToCart.php",
+        type: "POST",
+        data: { id: id },
+        success: function(response) {
+            try {
+                let data = JSON.parse(response); // Chuyển chuỗi JSON thành object
+
+                if (data.status === "success") {
+                    Swal.fire({
+                        title: "Thành công!",
+                        text: "Sản phẩm đã được thêm vào giỏ hàng.",
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Xem giỏ hàng",
+                        cancelButtonText: "Tiếp tục mua",
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "cart.php"; // Chuyển đến trang giỏ hàng
+                        }
+                    });
+                } else if (data.message === "Vui lòng đăng nhập để thêm vào giỏ hàng.") {
+                    Swal.fire({
+                        title: "Chưa đăng nhập!",
+                        text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Đăng nhập",
+                        cancelButtonText: "Đóng",
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../login.php"; // Chuyển hướng đến trang đăng nhập
+                        }
+                    });
+                } else {
+                    Swal.fire("Lỗi!", data.message || "Không thể thêm vào giỏ hàng.", "error");
+                }
+            } catch (error) {
+                console.error("Lỗi parse JSON:", error, response);
+                Swal.fire("Lỗi!", "Có lỗi xảy ra, vui lòng thử lại.", "error");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Lỗi AJAX:", status, error);
+            Swal.fire("Lỗi!", "Không thể kết nối đến server.", "error");
+        }
+    });
+}
+
+
+</script>
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
