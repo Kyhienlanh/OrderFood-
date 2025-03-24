@@ -174,7 +174,7 @@
 	</div> -->
 	<!-- end single product -->
 
-	<!-- more products -->
+	<!-- more products
 	<div class="more-products mb-150">
 		<div class="container">
 			<div class="row">
@@ -218,10 +218,10 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- end more products -->
 
-	<!-- logo carousel -->
+	<!-- logo carousel
 	<div class="logo-carousel-section">
 		<div class="container">
 			<div class="row">
@@ -246,7 +246,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- end logo carousel -->
 
 	<!-- footer -->

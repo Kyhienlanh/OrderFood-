@@ -73,8 +73,8 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Fresh and Organic</p>
-						<h1>Cart</h1>
+						
+						<h1>Giỏ hàng</h1>
 					</div>
 				</div>
 			</div>
@@ -187,7 +187,7 @@
 	<!-- end cart -->
 
 	<!-- logo carousel -->
-	<div class="logo-carousel-section">
+	<!-- <div class="logo-carousel-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -211,7 +211,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- end logo carousel -->
 
 	<!-- footer -->
