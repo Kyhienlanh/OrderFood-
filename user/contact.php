@@ -29,26 +29,132 @@
 	<!-- main style -->
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
+	<style>
+		.wrapper {
+    width: 100%;
+    max-width: 400px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.wrapper .title {
+    background: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.form {
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    background: white;
+}
+
+.inbox {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.bot-inbox {
+    justify-content: flex-start;
+}
+
+.user-inbox {
+    justify-content: flex-end;
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.msg-header {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    font-size: 14px;
+}
+
+.user-inbox .msg-header {
+    background: #007bff;
+    color: white;
+}
+
+.typing-field {
+    padding: 10px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+}
+
+.input-data {
+    flex: 1;
+    display: flex;
+}
+
+.input-data input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.input-data button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.input-data button:hover {
+    background: #0056b3;
+}
+
+	</style>
 </head>
 <body>
 	
-	<!--PreLoader-->
+
     <div class="loader">
         <div class="loader-inner">
             <div class="circle"></div>
         </div>
     </div>
-    <!--PreLoader Ends-->
-	
-	<!-- header -->
+   
 	<?php
 	include("menu.php");
 	?>
-	<!-- end header -->
-
-	<!-- search area -->
+	
+	
 	<div class="search-area">
 		<div class="container">
 			<div class="row">
@@ -65,52 +171,52 @@
 			</div>
 		</div>
 	</div>
-	<!-- end search arewa -->
 	
-	<!-- breadcrumb-section -->
+	
+	
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Get 24/7 Support</p>
-						<h1>Contact us</h1>
+						<p>Hỗ trợ 24/7</p>
+						<h1>Liên hệ với chúng tôi</h1>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end breadcrumb section -->
-
-	<!-- contact form -->
 	<div class="contact-from-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8 mb-5 mb-lg-0">
-					<div class="form-title">
-						<h2>Have you any question?</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
-					</div>
-				 	<div id="form_status"></div>
-					<div class="contact-form">
-						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
-							<p>
-								<input type="text" placeholder="Name" name="name" id="name">
-								<input type="email" placeholder="Email" name="email" id="email">
-							</p>
-							<p>
-								<input type="tel" placeholder="Phone" name="phone" id="phone">
-								<input type="text" placeholder="Subject" name="subject" id="subject">
-							</p>
-							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
-							<input type="hidden" name="token" value="FsWga4&@f6aw" />
-							<p><input type="submit" value="Submit"></p>
-						</form>
-					</div>
+			<div class="col-lg-8 mb-5 mb-lg-0">
+				<div class="form-title">
+					<h2>Bạn có thắc mắc gì không?</h2>
+					
 				</div>
+				<div id="form_status"></div>
+				<div class="contact-form">
+					<form id="contact-form">
+						<p>
+							<input type="text" placeholder="Tên" name="name" id="name" required>
+							<input type="email" placeholder="Email" name="email" id="email liên hệ" required>
+						</p>
+						<p>
+							<input type="tel" placeholder="Số điện thoại" name="phone" id="phone">
+							<input type="text" placeholder="Tiêu đề" name="subject" id="subject" required>
+						</p>
+						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Nội dung" required></textarea></p>
+						<input type="hidden" name="token" value="FsWga4&@f6aw" />
+						<!-- <p><button type="submit">Gửi</button></p> -->
+						<p><input type="submit" value="Submit"></p>
+					</form>
+				</div>
+			</div>
+			</div>
+
 				<div class="col-lg-4">
 					<div class="contact-form-wrap">
-						<div class="contact-form-box">
+						<!-- <div class="contact-form-box">
 							<h4><i class="fas fa-map"></i> Shop Address</h4>
 							<p>34/8, East Hukupara <br> Gifirtok, Sadan. <br> Country Name</p>
 						</div>
@@ -121,39 +227,106 @@
 						<div class="contact-form-box">
 							<h4><i class="fas fa-address-book"></i> Contact</h4>
 							<p>Phone: +00 111 222 3333 <br> Email: support@fruitkha.com</p>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end contact form -->
-
-	<!-- find our location -->
-	<div class="find-location blue-bg">
+	<div class="contact-from-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12 text-center">
-					<p> <i class="fas fa-map-marker-alt"></i> Find Our Location</p>
+				<div class="col-lg-8 mb-5 mb-lg-0">
+				<div class="wrapper">
+        <div class="title">Chatbot</div>
+        <div class="form">
+            <div class="bot-inbox inbox">
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="msg-header">
+                    <p>Xin chào, tôi có thể giúp gì cho bạn?</p>
+                </div>
+            </div>
+        </div>
+        <div class="typing-field">
+            <div class="input-data">
+                <input id="data" type="text" placeholder="Nhập câu hỏi.." required>
+                <button id="send-btn">Gửi</button>
+            </div>
+        </div>
+    </div>
+
+   
+					
+			</div>
+				<div class="col-lg-4">
+					<div class="contact-form-wrap">
+						
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end find our location -->
-
-	<!-- google map section -->
-	<div class="embed-responsive embed-responsive-21by9">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26432.42324808999!2d-118.34398767954286!3d34.09378509738966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bf07045279bf%3A0xf67a9a6797bdfae4!2sHollywood%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1576846473265!5m2!1sen!2sbd" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" class="embed-responsive-item"></iframe>
-	</div>
-	<!-- end google map section -->
-
-
-	<!-- footer -->
+	
 	<?php
 	include("footer.php");
 	?>
-	<!-- end copyright -->
-	
+	<script>
+        $(document).ready(function(){
+            $("#send-btn").on("click", function(){
+                $value = $("#data").val();
+                $msg = '<div class="user-inbox inbox"><div class="msg-header"><p>'+ $value +'</p></div></div>';
+                $(".form").append($msg);
+                $("#data").val('');
+                
+                // start ajax code
+                $.ajax({
+                    url: 'message.php',
+                    type: 'POST',
+                    data: 'text='+$value,
+                    success: function(result){
+                        $replay = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-user"></i></div><div class="msg-header"><p>'+ result +'</p></div></div>';
+                        $(".form").append($replay);
+                        // when chat goes down the scroll bar automatically comes to the bottom
+                        $(".form").scrollTop($(".form")[0].scrollHeight);
+                    }
+                });
+            });
+        });
+    </script>
+
+<script>
+$(document).ready(function () {
+    $("#contact-form").on("submit", function (event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "mail.php",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (data) {
+                let statusDiv = $("#form_status");
+                if (data.status === "success") {
+                    statusDiv.html("<p style='color: green;'>" + data.message + "</p>");
+                    $("#contact-form")[0].reset();
+                } else {
+                    statusDiv.html("<p style='color: red;'>" + data.message + "</p>");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi gửi form:", error);
+            }
+        });
+    });
+});
+</script>
+
+	</script>
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->

@@ -1,52 +1,63 @@
 <?php
-	
-	if( empty( $_POST['token'] ) ){
-		echo '<span class="notice">Error!</span>';
-		exit;
-	}
-	if( $_POST['token'] != 'FsWga4&@f6aw' ){
-		echo '<span class="notice">Error!</span>';
-		exit;
-	}
-	
-	$name = $_POST['name'];
-	$from = $_POST['email'];
-	$phone = $_POST['phone'];
-	$subject = stripslashes( nl2br( $_POST['subject'] ) );
-	$message = stripslashes( nl2br( $_POST['message'] ) );
-	
-	$headers ="From: Form Contact <$from>\n";
-	$headers.="MIME-Version: 1.0\n";
-	$headers.="Content-type: text/html; charset=iso 8859-1";
-	
-	ob_start();
-	?>
-		Hi imransdesign!<br /><br />
-		<?php echo ucfirst( $name ); ?>  has sent you a message via contact form on your website!
-		<br /><br />
-		
-		Name: <?php echo ucfirst( $name ); ?><br />
-		Email: <?php echo $from; ?><br />
-		Phone: <?php echo $phone; ?><br />
-		Subject: <?php echo $subject; ?><br />
-		Message: <br /><br />
-		<?php echo $message; ?>
-		<br />
-		<br />
-		============================================================
-	<?php
-	$body = ob_get_contents();
-	ob_end_clean();
-	
-	$to = 'support@fruitkha.com';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-	$s = mail($to,$subject,$body,$headers,"-t -i -f $from");
+require '../vendor/autoload.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', 'errors.log');
+header('Content-Type: application/json'); // Đảm bảo trả về JSON
 
-	if( $s == 1 ){
-		echo '<div class="success"><i class="fas fa-check-circle"></i><h3>Thank You!</h3>Your message has been sent successfully.</div>';
-	}else{
-		echo '<div>Your message sending failed!</div>';
-	}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST['token']) || $_POST['token'] != 'FsWga4&@f6aw') {
+        echo json_encode(["status" => "error", "message" => "Invalid token"]);
+        exit;
+    }
 
-	
+    $name = htmlspecialchars($_POST['name']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $phone = htmlspecialchars($_POST['phone']);
+    $subject = htmlspecialchars($_POST['subject']);
+    $message = nl2br(htmlspecialchars($_POST['message']));
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode(["status" => "error", "message" => "Email không hợp lệ!"]);
+        exit;
+    }
+
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = '2124802010739@student.tdmu.edu.vn'; // Thay bằng email của bạn
+        $mail->Password = 'mspx rpwp osmx oomq'; // Thay bằng mật khẩu ứng dụng
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->CharSet = 'UTF-8';
+
+        $mail->setFrom('2124802010739@student.tdmu.edu.vn', 'GIA KỲ'); // Dùng email của bạn
+        $mail->addReplyTo($email, $name); // Người nhận có thể trả lời email
+        $mail->addAddress('atulakalihihi@gmail.com'); // Thay bằng email người nhận
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = "
+            <h3>Thông tin liên hệ</h3>
+            <p><strong>Tên:</strong> $name</p>
+            <p><strong>Email:</strong> $email</p>
+            <p><strong>Điện thoại:</strong> $phone</p>
+            <p><strong>Nội dung:</strong></p>
+            <p>$message</p>
+        ";
+
+        $mail->send();
+        echo json_encode(["status" => "success", "message" => "✅ Email đã gửi thành công!"]);
+    } catch (Exception $e) {
+        echo json_encode(["status" => "error", "message" => "❌ Gửi thất bại! Lỗi: " . $mail->ErrorInfo]);
+    }
+}
+
 ?>

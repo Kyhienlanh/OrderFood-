@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <div class="top-header-area" id="sticker">
 		<div class="container">
 			<div class="row">
@@ -48,7 +52,8 @@
 									</ul>
 								</li>
 								<?php
-									session_start();
+									
+								
 									if (isset($_SESSION['user_id']) && isset($_SESSION['username'])) {
 										echo '<li><a href="#">Xin chào '. $_SESSION['username'] . '</a>
 												<ul class="sub-menu">
