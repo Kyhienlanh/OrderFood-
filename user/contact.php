@@ -207,8 +207,9 @@
 						</p>
 						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Nội dung" required></textarea></p>
 						<input type="hidden" name="token" value="FsWga4&@f6aw" />
-						<!-- <p><button type="submit">Gửi</button></p> -->
-						<p><input type="submit" value="Submit"></p>
+						<p><button type="submit">Gửi</button></p>
+						<!-- <p><input type="submit" value="Submit" ></p> -->
+
 					</form>
 				</div>
 			</div>
@@ -245,7 +246,9 @@
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="msg-header">
-                    <p>Xin chào, tôi có thể giúp gì cho bạn?</p>
+                    <p>
+					Chào bạn, HKL Heathy Food có thể giúp gì cho bạn? Hãy chọn những yêu cầu của bạn: 1. Đặt hàng 2. Hủy đặt hàng 3. Liên hệ trực tuyến  
+					</p>
                 </div>
             </div>
         </div>
