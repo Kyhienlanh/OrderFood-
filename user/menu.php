@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 ?>
 
 <div class="top-header-area" id="sticker">
@@ -58,7 +61,7 @@ session_start();
 										echo '<li><a href="#">Xin chào '. $_SESSION['username'] . '</a>
 												<ul class="sub-menu">
 													<li><a href="logout.php">Đăng xuất</a></li>
-													<li><a href="ChinhSuaHoSo.php">Thông tin tài khoản</a></li>
+													<li><a href="HoSoNguoiDung.php">Thông tin tài khoản</a></li>
 													<li><a href="donhang.php">Đơn hàng</a></li>
 												</ul>
 											</li>';

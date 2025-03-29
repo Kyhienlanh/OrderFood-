@@ -211,12 +211,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="login.php" method="post" class="form">
       <input required="" class="input" type="text" name="username" id="email" placeholder="Tài khoản">
       <input required="" class="input" type="password" name="pass" id="password" placeholder="Mật khẩu">
-      <span class="forgot-password"><a href="#">Forgot Password ?</a></span>
+      <span class="forgot-password"><a href="../PROJECTPHP/user/forgot_password.php">Quên mật khẩu ?</a></span>
+      
       <input class="login-button" type="submit" value="Đăng nhập">
       
     </form>
     <div class="social-account-container">
-        <span class="title">Or Sign in with</span>
+        <!-- <span class="title">Or Sign in with</span>
         <div class="social-accounts">
           <button class="social-button google">
             <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512">
@@ -233,8 +234,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </svg>
           </button>
         </div>
-      </div>
-      <span class="agreement"><a href="#">Learn user licence agreement</a></span>
+      </div> -->
+      <span class="agreement"><a href="../PROJECTPHP/user/register.php">Đăng ký</a></span>
   </div>
 </body>
 </html>
