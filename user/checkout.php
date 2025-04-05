@@ -124,7 +124,7 @@
 											</label>
 										</p>
 
-										<p><textarea name="note" cols="30" rows="5" placeholder="Say Something"></textarea></p>
+										<p><textarea name="note" cols="30" rows="5" placeholder="ghi chú"></textarea></p>
 										<!-- <button type="submit" class="boxed-btn" style="border-radius: 20px;">Đặt hàng</button> -->
 								</form>
 										<?php

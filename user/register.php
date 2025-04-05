@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("db.php");
+include("../db.php");
 
 $errors = [];
 
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt->execute()) {
                 $_SESSION["success"] = "Đăng ký thành công! Hãy đăng nhập.";
-                header("Location: login.php");
+                header("Location: /login.php");
                 exit();
             } else {
                 $errors[] = "Đăng ký thất bại! Vui lòng thử lại.";
@@ -193,7 +193,7 @@ p a:hover {
         <button type="submit" class="btn btn-register w-100">Đăng Ký</button>
     </form>
 
-    <p class="text-center mt-3">Đã có tài khoản? <a href="login.php">Đăng nhập</a></p>
+    <p class="text-center mt-3">Đã có tài khoản? <a href="../login.php">Đăng nhập</a></p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
