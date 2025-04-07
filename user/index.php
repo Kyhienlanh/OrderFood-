@@ -30,7 +30,11 @@
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
-
+	<style>
+		*{
+			font-family: 'Open Sans', sans-serif;
+		}
+	</style>
 </head>
 <body>
 	
@@ -139,7 +143,7 @@
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="section-title">	
 						<h3><span class="orange-text">Sản phẩm của chúng tôi nhấn <a href="shop.php">Tại đây</a> để xem chi tiết</span> </h3>
-						<p>Món ăn được yêu thích</p>
+						<h2 style="margin-top: 30px;">Món ăn được yêu thích</h2>
 					</div>
 				</div>
 			</div>

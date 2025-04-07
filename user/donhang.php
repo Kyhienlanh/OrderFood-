@@ -30,7 +30,11 @@
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
-
+	<style>
+		*{
+			font-family: 'Open Sans', sans-serif;
+		}
+	</style>
 </head>
 <body>
 	
@@ -130,9 +134,27 @@
                                         <td class="product-price"><?php echo number_format($rows['tongtien'], 0) . " VNĐ"; ?></td>
                                         <td class="product-name"><?php echo $rows['ngaydat']; ?></td>
                                         <td class="product-name"><?php echo $rows['diachi']; ?></td>
-                                        <td class="product-name"><?php echo $rows['trangthai']; ?></td>
+                                        <td class="product-name"><?php
+																	if($rows['trangthai']=="cho_duyet"){
+																		echo "Chờ duyệt"; 
+																	}else if($rows['trangthai']=="dang_xu_ly"){
+																		echo "Đang xử lý";
+																	}else if($rows['trangthai']=="hoan_tat"){
+																		echo "Hoàn tất";
+																	}
+																	else{	
+																		echo "Hủy";
+																	}
+																?>
+										</td>
 										<td class="product-name"><?php 
-																	 echo $rows['phuongthuc'];
+																	if($rows['phuongthuc']=="tien_mat"){
+																		echo "Tiền mặt";
+																	}
+																	else{
+																		echo "paypal";
+																	}
+																	
 																 ?></td>
                                         <td>
                                             <button class="btn btn-primary view-details" data-id="<?php echo $rows['id_donhang']; ?>" data-toggle="modal" data-target="#orderDetailModal">

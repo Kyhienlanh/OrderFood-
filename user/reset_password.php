@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         unset($_SESSION["verified_email"]);
         $success = "Đặt lại mật khẩu thành công! Bạn có thể đăng nhập ngay.";
-        header("Location: login.php");
+        header("Location: /PROJECTPHP/login.php"); 
         exit();
     }
 }

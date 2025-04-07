@@ -30,7 +30,11 @@
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
-
+	<style>
+		*{
+			font-family: 'Open Sans', sans-serif;
+		}
+	</style>
 </head>
 <body>
 	

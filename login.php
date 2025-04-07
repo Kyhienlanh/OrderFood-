@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect based on user role
                 if($row['vaitro'] == "quanly"){
-                    header("Location: admin/startbootstrap-sb-admin-2-gh-pages/index.php");
+                    header("Location: admin/admin/index.php");
                     exit();
                 } else {
                     header("Location: user/index.php");

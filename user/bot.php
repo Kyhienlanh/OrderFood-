@@ -21,7 +21,11 @@
 </div>
 
 <style>
- 
+
+		*{
+			font-family: 'Open Sans', sans-serif;
+		}
+	
     .chatbot-container {
         display: flex;
         justify-content: center;

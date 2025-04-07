@@ -34,6 +34,11 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
 	<style>
+	
+		*{
+			font-family: 'Open Sans', sans-serif;
+		}
+
 		.wrapper {
     width: 100%;
     max-width: 400px;

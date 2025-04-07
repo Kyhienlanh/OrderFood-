@@ -43,9 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail->Port = 587;
 
                 // Cài đặt email gửi
-                $mail->setFrom('2124802010739@student.tdmu.edu.vn', 'Hỗ trợ khách hàng');
+                $mail->setFrom('2124802010739@student.tdmu.edu.vn', 'Ho tro khach hang');
                 $mail->addAddress($email);
-                $mail->Subject = "Mã OTP đặt lại mật khẩu";
+                $mail->Subject = "OTP HKL FOOD";
                 $mail->Body = "Mã OTP của bạn là: $otp_code. Mã này có hiệu lực trong 5 phút.";
 
                 // Gửi email

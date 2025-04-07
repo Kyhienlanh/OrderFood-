@@ -21,7 +21,7 @@ if (session_status() == PHP_SESSION_NONE) {
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="index.php">Trang Chủ</a>
+								<li><a href="index.php">Trang Chủ</a>
 									<!-- <ul class="sub-menu">
 										<li><a href="index.php">Static Home</a></li>
 										<li><a href="index_2.php">Slider Home</a></li>
@@ -86,3 +86,4 @@ if (session_status() == PHP_SESSION_NONE) {
 			</div>
 		</div>
 	</div>
+</div>
