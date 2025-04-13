@@ -244,7 +244,86 @@
         </div>
     </section> -->
     <!-- end cart banner section -->
+	
+	<section class="shop-banner">
+    	<div class="container">
+        	<h3>ĐỒ ĂN CHAY <br> Thực đơn đa dạng<span class="orange-text"></span></h3>
+            <div class="sale-percent"><span> <br> </span>đặt ngay nào!<span></span></div>
+            <a href="shop.php" class="cart-btn btn-lg">Cửa hàng</a>
+        </div>
+    </section>
+	<div class="latest-news pt-150 pb-150">
+		<div class="container">
 
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">Thông tin </span> món ăn</h3>
+						<p></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+			<div class="col-lg-4 col-md-6">
+    <div class="single-latest-news">
+        <a href="single-news.html">
+            <img src="../uploads/goicuon.jpg" alt="Bánh mì chay" class="img-fluid">
+        </a>
+        <div class="news-text-box">
+            <h3><a href="single-news.html">Bánh Mì Chay – Đậm Đà Hương Vị Thuần Việt</a></h3>
+            <p class="blog-meta">
+                <span class="author"><i class="fas fa-user"></i> Admin</span>
+                <span class="date"><i class="fas fa-calendar"></i> 14-4-2025</span>
+            </p>
+            <p class="excerpt">Bánh mì chay với nhân đậu hũ, nấm, rau củ tươi ngon kết hợp cùng nước sốt đậm đà, mang lại hương vị hấp dẫn mà không cần đến thịt.</p>
+            <a href="shop.php" class="read-more-btn">xem chi tiết <i class="fas fa-angle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-6">
+    <div class="single-latest-news">
+        <a href="single-news.html">
+            <img src="../uploads/goicuon.jpg" alt="Lẩu nấm chay" class="img-fluid">
+        </a>
+        <div class="news-text-box">
+            <h3><a href="single-news.html">Lẩu Nấm Chay – Thanh Đạm Mà Đậm Đà</a></h3>
+            <p class="blog-meta">
+                <span class="author"><i class="fas fa-user"></i> Admin</span>
+                <span class="date"><i class="fas fa-calendar"></i> 14-4-2025</span>
+            </p>
+            <p class="excerpt">Lẩu nấm chay là món ăn thanh mát với nhiều loại nấm tươi ngon, nước dùng ngọt tự nhiên từ rau củ và gia vị chay, rất thích hợp cho những buổi sum họp gia đình.</p>
+            <a href="shop.php" class="read-more-btn">xem chi tiết <i class="fas fa-angle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-4 col-md-6">
+    <div class="single-latest-news">
+        <a href="single-news.html">
+            <img src="../uploads/goicuon.jpg" alt="Cơm tấm chay" class="img-fluid">
+        </a>
+        <div class="news-text-box">
+            <h3><a href="single-news.html">Cơm Tấm Chay – Đổi Gió Cho Bữa Cơm Hằng Ngày</a></h3>
+            <p class="blog-meta">
+                <span class="author"><i class="fas fa-user"></i> Admin</span>
+                <span class="date"><i class="fas fa-calendar"></i> 14-4-2025</span>
+            </p>
+            <p class="excerpt">Cơm tấm chay với sườn non chay, bì chay và chả hấp, ăn kèm dưa leo, đồ chua, thêm nước mắm chay đậm vị tạo nên một bữa ăn thanh tịnh nhưng vẫn đầy đủ dinh dưỡng.</p>
+            <a href="shop.php" class="read-more-btn">xem chi tiết <i class="fas fa-angle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<a href="shop.php" class="boxed-btn">Cửa hàng</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- testimonail-section -->
 	<div class="testimonail-section mt-150 mb-150">
 		<div class="container">
