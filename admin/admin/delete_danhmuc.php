@@ -9,9 +9,6 @@
     $sql    = "delete from danhmuc where id_danhmuc=$id";
     $rs     = mysqli_query($connection, $sql);
 
-    $sql    = "delete from tblsubject where id_danhmuc=$id";
-    $rs     = mysqli_query($connection, $sql);
-
     if($rs)
         header("location:list_danhmuc.php");
 ?>

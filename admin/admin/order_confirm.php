@@ -302,7 +302,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 if ($total_pages > 1) {
                     for ($i = 1; $i <= $total_pages; $i++) {
                         $active = ($i == $current_page) ? "active" : "";
-                        echo "<li class='page-item $active'><a class='page-link' href='list_monan.php?page=$i'>$i</a></li>";
+                        echo "<li class='page-item $active'><a class='page-link' href='order_confirm.php?page=$i'>$i</a></li>";
                     }
                 }
             ?>
